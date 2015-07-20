@@ -21,20 +21,26 @@ public class ItemView extends RecyclerView.ViewHolder {
     public void setItemView(ItemData id) {
         tvContent.setText(id.getContent());
 
-        Pattern tagMatcher = Pattern.compile("[#]+[ㄱ-ㅎㅏ-ㅣ가-힣A-Za-z0-9-_]+\\b");
+        if(isThereSharp(id.getContent())) {
+            Pattern tagMatcher = Pattern.compile("[#]+[ㄱ-ㅎㅏ-ㅣ가-힣A-Za-z0-9-_]+\\b");
 
-        String newActivityURL = "hash://search";
+            String newActivityURL = "hash://search";
 
-        Linkify.TransformFilter transform = new Linkify.TransformFilter() {
-            @Override
-            public String transformUrl(Matcher match, String url) {
-                return "?" + SearchActivity.PARAM_KEYWORD + "=" + url.substring(1, url.length());
-            }
-        };
+            Linkify.TransformFilter transform = new Linkify.TransformFilter() {
+                @Override
+                public String transformUrl(Matcher match, String url) {
+                    return "?" + SearchActivity.PARAM_KEYWORD + "=" + url.substring(1, url.length());
+                }
+            };
 
-        Linkify.addLinks(tvContent, tagMatcher, newActivityURL, null, transform);
+            Linkify.addLinks(tvContent, tagMatcher, newActivityURL, null, transform);
 
-        URLSpanNoUnderline.stripUnderlines(tvContent);
+            URLSpanNoUnderline.stripUnderlines(tvContent);
+        }
+    }
+
+    private boolean isThereSharp(String str) {
+        return str.contains("#") ? true : false;
     }
 
 

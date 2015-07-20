@@ -14,7 +14,8 @@
             android:id="@+id/edit_content_main"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/button_submit_main"
@@ -27,6 +28,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

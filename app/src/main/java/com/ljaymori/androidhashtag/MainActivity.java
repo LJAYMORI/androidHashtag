@@ -1,5 +1,6 @@
 package com.ljaymori.androidhashtag;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -19,10 +21,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private EditText etContent;
 
+    private InputMethodManager imm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_main);
 
@@ -75,6 +81,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 mAdapter.add(id);
 
                 etContent.setText("");
+
+                recyclerView.smoothScrollToPosition(mAdapter.getItemCount()-1);
                 break;
             }
         }
